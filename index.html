@@ -363,6 +363,16 @@ function ensureSession() {
 
 function ensureMode() {
   if (mode) return mode;
+  // ?mode=absolute or ?mode=pairwise overrides everything (for testing).
+  try {
+    const u = new URL(window.location.href);
+    const q = u.searchParams.get('mode');
+    if (q === 'absolute' || q === 'pairwise') {
+      mode = q;
+      try { sessionStorage.setItem('hev_mode', mode); } catch (e) {}
+      return mode;
+    }
+  } catch (e) {}
   try { mode = sessionStorage.getItem('hev_mode'); } catch (e) {}
   if (!mode) {
     const rng = makeRng(hashString('mode|' + ensureSession()));
