@@ -1,0 +1,3 @@
+# Raw model-generation CSVs — kept locally for regenerating questions.json.
+# Use `python3 build_questions.py` to (re)generate questions.json from these.
+*_generated.csv
